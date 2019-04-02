@@ -1,0 +1,59 @@
+<div class="catalog-wrapper">
+  <table class="catalog-table">
+    <tr class="headers-wrapper">
+      <th mat-header-cell> Id </th>
+      <th mat-header-cell> Title </th>
+      <th mat-header-cell> Category </th>
+      <th mat-header-cell> Price </th>
+      <th mat-header-cell> Description </th>
+      <th mat-header-cell> Image </th>
+      <th mat-header-cell> Action </th>
+    </tr>
+    <tr class="headers-search">
+      <th mat-header-cell></th>
+      <th mat-header-cell>
+        <form class="search-form">
+          <mat-form-field class="search-field">
+            <input matInput placeholder="Title" #titleSearch>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </form>
+      </th>
+      <th mat-header-cell></th>
+      <th mat-header-cell></th>
+      <th mat-header-cell></th>
+      <th mat-header-cell></th>
+      <th mat-header-cell></th>
+    </tr>
+    <tr *ngFor="let doc of products.products; index as i"
+        class="doc-wrapper">
+      <th mat-header-cell> {{i + 1}} </th>
+      <th mat-header-cell> {{doc.title}} </th>
+      <th mat-header-cell> {{doc.category}} </th>
+      <th mat-header-cell> {{doc.price}} </th>
+      <th mat-header-cell> {{doc.description}} </th>
+      <th mat-header-cell>
+        <img preloadImg src="{{doc.image}}" alt="doc.title" height="50" />
+      </th>
+      <th>
+        <div>
+          <button mat-button *ngIf="user.userRole"
+                  (click)="edit(doc.id)"
+                  title="Edit current product">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button *ngIf="user.userRole"
+                  (click)="delete(doc.id)"
+                  title="Delete current product">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </th>
+    </tr>
+  </table>
+  <mat-paginator [length]="products.totalCount"
+                 [pageSize]="products.limit"
+                 [pageSizeOptions]="[3, 7, 25]">
+  </mat-paginator>
+</div>
+<edit-product></edit-product>

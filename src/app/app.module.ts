@@ -1,18 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing/app-roiting.module';
 import { AppComponent } from './app.component';
+import { MatModule } from './shared/mat.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { ProductService, UserService } from './services';
+import {  
+  HeaderComponent,
+  CatalogComponent,
+  ProductComponent,
+  FooterComponent,
+  EditComponent
+} from './components';
+import { PreloadImgDirective } from './directives/imgPreload.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    CatalogComponent,
+    ProductComponent,
+    FooterComponent,
+    PreloadImgDirective,
+    EditComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule,
+    AppRoutingModule,
+    MatModule,
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    ProductService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

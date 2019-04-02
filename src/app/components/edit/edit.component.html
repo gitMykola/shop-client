@@ -1,0 +1,54 @@
+<div class="edit-wrapper" *ngIf="stateEditor">
+  <h3>Edit product Id: {{idHeader}}</h3>
+  <button mat-button (click)="closeEdit()"
+          class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-card>
+    <form [formGroup]="editForm"
+          class="product-form">
+      <input name="id" hidden
+             type="text" formControlName="id">
+      <mat-form-field>
+        <input matInput placeholder="Title" name="title"
+               type="text" formControlName="title">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select matInput formControlName="category"
+                    name="category" placeholder="Category">
+          <mat-option value="food">Food</mat-option>
+          <mat-option value="auto">Auto</mat-option>
+          <mat-option value="estate">Estate</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" name="description"
+                  type="text" formControlName="description"
+                  rows="5" length="255" mdbCharCounter mdbInput>
+      </textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Price" name="price"
+               type="number" formControlName="price" step="0.01"
+               min="0.00" max="1e9">
+      </mat-form-field>
+      <div class="input-file">
+        <button mat-button (click)="fileIn.click()">
+          Select product image file
+          <mat-icon>crop_original</mat-icon>
+        </button>
+        <input #fileIn hidden type="file"
+               name="image" accept=".jpg, .png" (change)="onFileSelected($event)">
+      </div>
+      <div class="submit-button">
+        <button mat-raised-button type="submit"
+                [disabled]="false"
+                (click)="onSubmit()">
+          Save
+          <mat-icon>done</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
