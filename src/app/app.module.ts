@@ -16,6 +16,7 @@ import {
   EditComponent
 } from './components';
 import { PreloadImgDirective } from './directives/imgPreload.directive';
+import {SafeUrlsPipe} from './lib/saveUrlPipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PreloadImgDirective } from './directives/imgPreload.directive';
     ProductComponent,
     FooterComponent,
     PreloadImgDirective,
-    EditComponent
+    EditComponent,
+      SafeUrlsPipe
   ],
   imports: [
     BrowserModule,

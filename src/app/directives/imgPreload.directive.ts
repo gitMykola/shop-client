@@ -1,34 +1,25 @@
-import { Directive, ElementRef, OnInit } from "@angular/core";
-import {
-  AnimationPlayer,
-  AnimationBuilder,
-  AnimationFactory,
-  animate, style
-} from '@angular/animations';
+import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 
 @Directive({
   selector: '[preloadImg]'
 })
 export class PreloadImgDirective implements OnInit {
-  private timing = '500ms cubic-bezier(0.2, 1, 0.2, 1)';
-  private player: AnimationPlayer;
+  @Input('pre-src') preSrc: string;
   constructor(
-    private el: ElementRef,
-    private builder: AnimationBuilder
+    private el: ElementRef
   ) {
   }
   ngOnInit() {
-    this.el.nativeElement.style.filter = 'blur(1000px)';
-    const self = this;
-    const preloadAnimation: AnimationFactory = self.buildAnimation();
-    self.player = preloadAnimation.create(self.el.nativeElement);
-    this.el.nativeElement.onload = function () {
-      self.player.play();
-    }
-  }
-  private buildAnimation() {
-    return this.builder.build([
-      animate(this.timing, style({ filter: 'none' }))
-    ]);
+    this.el.nativeElement.style.opacity = '0.001';
+    this.el.nativeElement.style.transform = 'scale(0.1, 0.1)';
+    const preImg = new Image();
+    preImg.src = this.preSrc;
+    preImg.onload = () => {
+      this.el.nativeElement.src = this.preSrc;
+      this.el.nativeElement.style.opacity = '1';
+      this.el.nativeElement.style.transform = 'scale(1,1)';
+      this.el.nativeElement.style.transition = 'opacity 1s cubic-bezier(0.2, 1, 0.2, 1),' +
+          ' transform 2s cubic-bezier(0.2, 1, 0.2, 1)';
+    };
   }
 }
